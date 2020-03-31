@@ -1,4 +1,4 @@
-module main
+module github.com/hellojukay/j2y
 
 go 1.13
 
