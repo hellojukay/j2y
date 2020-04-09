@@ -1,11 +1,14 @@
 package main
 
-import "fmt"
-import "io/ioutil"
-import "os"
-import "encoding/json"
-import "gopkg.in/yaml.v2"
-import "flag"
+import (
+	"bytes"
+	"encoding/json"
+	"flag"
+	"fmt"
+	"gopkg.in/yaml.v3"
+	"io/ioutil"
+	"os"
+)
 
 var of = os.Stdout
 var inf = os.Stdin
@@ -43,10 +46,13 @@ func main() {
 		println("parse json error")
 		os.Exit(1)
 	}
-	yf, err := yaml.Marshal(m)
+	var buffer = bytes.Buffer{}
+	var encoder = yaml.NewEncoder(&buffer)
+	encoder.SetIndent(4)
+	err = encoder.Encode(m)
 	if err != nil {
 		println("convert json to yaml error")
 		os.Exit(1)
 	}
-	fmt.Fprintf(of, "%s", string(yf))
+	fmt.Fprintf(of, "%s", string(buffer.Bytes()))
 }
