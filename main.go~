@@ -48,5 +48,5 @@ func main() {
 		println("convert json to yaml error")
 		os.Exit(1)
 	}
-	fmt.Fprintf(of, "%s", string(yf))
+	fmt.Fprint(of, "%s", string(yf))
 }
